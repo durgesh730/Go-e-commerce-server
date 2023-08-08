@@ -12,13 +12,6 @@ import (
 )
 
 func main() {
-	// env
-	errr := godotenv.Load()
-	if errr != nil {
-		fmt.Println("Error connecting to mongoDB", errr)
-		return
-	}
-
 	// connect database
 	err := database.ConnectDB()
 	if err != nil {
