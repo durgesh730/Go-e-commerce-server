@@ -7,7 +7,6 @@ import (
 
 	"github.com/durgesh730/authenticationInGo/database"
 	"github.com/durgesh730/authenticationInGo/router"
-	"github.com/joho/godotenv"
 	"github.com/rs/cors"
 )
 
