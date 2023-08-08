@@ -3,7 +3,6 @@ package database
 import (
 	"context"
 	"fmt"
-	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -14,7 +13,7 @@ var Productdata *mongo.Collection
 var Cartdata *mongo.Collection
 
 func ConnectDB() error {
-	 db :=  os.Getenv("DB")
+	db := "mongodb+srv://durgeshchaudhary020401:Durgesh%402022@cluster0.vzdrcpb.mongodb.net/durgesh"
 	clientOption := options.Client().ApplyURI(db)
 	client, err := mongo.Connect(context.TODO(), clientOption)
 

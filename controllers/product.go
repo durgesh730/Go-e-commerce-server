@@ -11,10 +11,22 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func CreateProducts(w http.ResponseWriter, r *http.Request) {
+func MaleCreateProducts(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("content-type", "application/json")
 
 	var product models.MaleProduct
+	_ = json.NewDecoder(r.Body).Decode(&product)
+
+	result, _ := database.Productdata.InsertOne(context.Background(), product)
+	product.Id = result.InsertedID.(primitive.ObjectID)
+
+	json.NewEncoder(w).Encode(product.Id)
+}
+
+func FemaleCreateProducts(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-type", "application/json")
+
+	var product models.FemaleProduct
 	_ = json.NewDecoder(r.Body).Decode(&product)
 
 	result, _ := database.Productdata.InsertOne(context.Background(), product)

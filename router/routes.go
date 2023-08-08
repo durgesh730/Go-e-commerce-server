@@ -16,7 +16,8 @@ func Router() *mux.Router {
 	router.HandleFunc("/getuserData", controllers.GetUsersEndpoint).Methods("GET")
 
 	//product
-	router.HandleFunc("/product", controllers.CreateProducts).Methods("POST")
+	router.HandleFunc("/product", controllers.MaleCreateProducts).Methods("POST")
+	router.HandleFunc("/product", controllers.FemaleCreateProducts).Methods("POST")
 	router.HandleFunc("/getproduct", controllers.GetProducts).Methods("GET")
 
 	//cart routes
