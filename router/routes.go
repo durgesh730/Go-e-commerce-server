@@ -16,9 +16,11 @@ func Router() *mux.Router {
 	router.HandleFunc("/getuserData", controllers.GetUsersEndpoint).Methods("GET")
 
 	//product
-	router.HandleFunc("/product", controllers.MaleCreateProducts).Methods("POST")
-	router.HandleFunc("/product", controllers.FemaleCreateProducts).Methods("POST")
+	router.HandleFunc("/product/Maleproduct", controllers.MaleCreateProducts).Methods("POST")
+	router.HandleFunc("/product/Femaleproduct", controllers.FemaleCreateProducts).Methods("POST")
 	router.HandleFunc("/getproduct", controllers.GetProducts).Methods("GET")
+	router.HandleFunc("/getQueryproduct", controllers.GetQueryProducts).Methods("GET")
+	router.HandleFunc("/getproductbyId", controllers.GetProductsbyId).Methods("GET")
 
 	//cart routes
     router.HandleFunc("/cart/createproducts", middleware.AuthMiddleware(controllers.CreateProductCart)).Methods("POST")

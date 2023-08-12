@@ -8,9 +8,9 @@ import (
 )
 
 func CreateProductCart(response http.ResponseWriter, request *http.Request) {
-   response.Header().Set("content-type", "application/json");
+	response.Header().Set("content-type", "application/json")
 
-   val := request.Context().Value(middleware.UserIDKey)
+	val := request.Context().Value(middleware.UserIDKey)
 	if val == nil {
 		// Handle the case where no userId is present
 		http.Error(response, "No user ID present", http.StatusUnauthorized)
@@ -24,18 +24,17 @@ func CreateProductCart(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-   fmt.Println(userId)
+	fmt.Println(userId)
 
 }
-
 
 func GetProductFromCart(response http.ResponseWriter, request *http.Request) {
-   response.Header().Set("content-type", "application/json");
+	response.Header().Set("content-type", "application/json")
 }
 func UpdateProductFromCart(response http.ResponseWriter, request *http.Request) {
-   response.Header().Set("content-type", "application/json");
+	response.Header().Set("content-type", "application/json")
 }
 
 func DeleteProductFromCart(response http.ResponseWriter, request *http.Request) {
-   response.Header().Set("content-type", "application/json");
+	response.Header().Set("content-type", "application/json")
 }
