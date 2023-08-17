@@ -24,7 +24,7 @@ func Router() *mux.Router {
 
 	//cart routes
     router.HandleFunc("/cart/createproducts", middleware.AuthMiddleware(controllers.CreateProductCart)).Methods("POST")
-	router.HandleFunc("/cart/getproducts", controllers.GetProductFromCart).Methods("GET")
+	router.HandleFunc("/cart/getproducts", middleware.AuthMiddleware(controllers.GetProductFromCart)).Methods("GET")
 	router.HandleFunc("/cart/deleteproducts", controllers.DeleteProductFromCart).Methods("DELETE")
 	router.HandleFunc("/cart/updateproducts", controllers.UpdateProductFromCart).Methods("PUT")
 

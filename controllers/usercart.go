@@ -1,36 +1,83 @@
 package controllers
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
+	"github.com/durgesh730/authenticationInGo/database"
 	"github.com/durgesh730/authenticationInGo/middleware"
+	"github.com/durgesh730/authenticationInGo/models"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func CreateProductCart(response http.ResponseWriter, request *http.Request) {
-	response.Header().Set("content-type", "application/json")
+func CreateProductCart(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-type", "application/json")
 
-	val := request.Context().Value(middleware.UserIDKey)
+	val := r.Context().Value(middleware.UserIDKey)
 	if val == nil {
 		// Handle the case where no userId is present
-		http.Error(response, "No user ID present", http.StatusUnauthorized)
+		http.Error(w, "No user ID present", http.StatusUnauthorized)
 		return
 	}
 
 	userId, ok := val.(string)
 	if !ok {
 		// Handle the case where the userId is not a string
-		http.Error(response, "User ID is of the wrong type", http.StatusInternalServerError)
+		http.Error(w, "User ID is of the wrong type", http.StatusInternalServerError)
 		return
 	}
+	var cart models.Cart
+	_ = json.NewDecoder(r.Body).Decode(&cart)
 
-	fmt.Println(userId)
+	id, err := primitive.ObjectIDFromHex(userId)
+	if err != nil {
+		http.Error(w, "Token Not Valid", http.StatusBadRequest)
+	}
 
+	cart.UserId = id
+	save, _ := database.Cartdata.InsertOne(context.Background(), cart)
+
+	fmt.Println(save, "id")
+	json.NewEncoder(w).Encode(save)
 }
 
 func GetProductFromCart(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
+
+	val := request.Context().Value(middleware.UserIDKey)
+	if val == nil {
+		// handle the case when user id not found
+		http.Error(response, "No user ID present", http.StatusUnauthorized)
+		return
+	}
+
+	userId, ok := val.(string)
+	if !ok {
+		http.Error(response, "User ID is worng type", http.StatusInternalServerError)
+		return
+	}
+
+	filter := bson.M{"_id": userId}
+	curr, err := database.Cartdata.Find(request.Context(), filter)
+
+	if err != nil {
+		http.Error(response, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	var cart []models.Cart
+	for curr.Next(context.Background()) {
+		var item models.Cart
+		curr.Decode(&item)
+		cart = append(cart, item)
+	}
+
+	json.NewEncoder(response).Encode(cart)
 }
+
 func UpdateProductFromCart(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
 }
