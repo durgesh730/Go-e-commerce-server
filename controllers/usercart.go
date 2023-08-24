@@ -60,7 +60,13 @@ func GetProductFromCart(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	filter := bson.M{"_id": userId}
+	objectId, err := primitive.ObjectIDFromHex(userId)
+	if err != nil {
+		http.Error(response, "Invalid user ID format", http.StatusBadRequest)
+		return
+	}
+
+	filter := bson.M{"userId": objectId}
 	curr, err := database.Cartdata.Find(request.Context(), filter)
 
 	if err != nil {
@@ -75,7 +81,15 @@ func GetProductFromCart(response http.ResponseWriter, request *http.Request) {
 		cart = append(cart, item)
 	}
 
-	json.NewEncoder(response).Encode(cart)
+	if err := curr.Err(); err != nil {
+		fmt.Println("Cursor error:", err)
+		http.Error(response, "Database iteration error", http.StatusInternalServerError)
+		return
+	}
+
+	if err := json.NewEncoder(response).Encode(cart); err != nil {
+		http.Error(response, "Failed to encode response", http.StatusInternalServerError)
+	}
 }
 
 func UpdateProductFromCart(response http.ResponseWriter, request *http.Request) {
