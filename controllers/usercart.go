@@ -98,4 +98,26 @@ func UpdateProductFromCart(response http.ResponseWriter, request *http.Request) 
 
 func DeleteProductFromCart(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
+	
+	query := request.URL.Query().Get("q")
+	if query == " " {
+		http.Error(response, "Missing query parameter 'q' ", http.StatusBadRequest)
+		return
+	}
+
+	filter := bson.M{"productId": primitive.Regex{Pattern: query, Options: "i"}}
+	curr := database.Productdata.FindOneAndDelete(request.Context(), filter)
+    
+	if curr.Err() != nil {
+        http.Error(response, curr.Err().Error(), http.StatusInternalServerError)
+        return
+    }
+
+	var deletedProduct models.Cart
+	if err := curr.Decode(&deletedProduct); err != nil {
+        http.Error(response, err.Error(), http.StatusInternalServerError)
+        return
+    }
+	
+	json.NewEncoder(response).Encode(deletedProduct)
 }
