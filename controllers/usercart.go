@@ -105,9 +105,16 @@ func DeleteProductFromCart(response http.ResponseWriter, request *http.Request) 
 		return
 	}
 
-	filter := bson.M{"productId": primitive.Regex{Pattern: query, Options: "i"}}
-	curr := database.Productdata.FindOneAndDelete(request.Context(), filter)
-    
+	id, err := primitive.ObjectIDFromHex(query)
+	if err != nil {
+		http.Error(response, "Invalid query parameter 'q'", http.StatusBadRequest)
+		return
+	}
+
+	filter := bson.M{"productId": id}
+	fmt.Println(filter)
+	curr := database.Cartdata.FindOneAndDelete(request.Context(), filter)
+
 	if curr.Err() != nil {
         http.Error(response, curr.Err().Error(), http.StatusInternalServerError)
         return
