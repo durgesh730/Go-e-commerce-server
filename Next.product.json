@@ -5,6 +5,7 @@
   "title": "Men Solid Polo Neck Pure Cotton Orange T-Shirt",
   "brand": "U.S. POLO ASSN",
   "discount": 55,
+  "count":5,
   "size": [
     "M",
     "S"
@@ -30,6 +31,7 @@
   "title": "Men Colorblock Polo Neck Cotton Blend Dark Blue, White T-Shirt",
   "brand": "M7 By Metronaut",
   "discount": 75,
+  "count":5,
   "size": [
     "M",
     "S",
@@ -57,6 +59,7 @@
   "title": "Men Solid Polo Neck Pure Cotton Green T-Shirt",
   "brand": "U.S. POLO ASSN",
   "discount": 55,
+  "count":5,
   "size": [
     "M",
     "S",
@@ -85,6 +88,7 @@
   "title": "Men Solid Polo Neck Pure Cotton Green T-Shirt",
   "brand": "WROGN",
   "discount": 55,
+  "count":5,
   "size": [
     "M",
     "S",
@@ -111,6 +115,7 @@
   "title": "Men Printed Crew Neck Cotton Blend Blue T-Shirt",
   "brand": "WROGN",
   "discount": 48,
+  "count":5,
   "size": [
     "M",
     "S",
@@ -138,6 +143,7 @@
   "title": "Men Printed Crew Neck Cotton Blend Blue T-Shirt",
   "brand": "INDIAN TERRAIN",
   "discount": 40,
+  "count":5,
   "size": [
     "M",
     "S",
@@ -165,6 +171,7 @@
   "title": "Men Printed Crew Neck Cotton Blend Blue T-Shirt",
   "brand": "INDIAN TERRAIN",
   "discount": 40,
+  "count":5,
   "size": [
     "M",
     "S",
@@ -192,6 +199,7 @@
   "title": "Men Solid Polo Neck Cotton Blend Blue T-Shirt",
   "brand": "INDIAN TERRAIN",
   "discount": 55,
+  "count":5,
   "size": [
     "M",
     "S",
@@ -218,6 +226,7 @@
   "title": "Self Design Bollywood Net Saree  (White)",
   "brand": "LOROFY",
   "discount": 91,
+  "count":5,
   "sariLength": "5.5m",
   "fabric": "Net",
   "packof": 1,
@@ -242,6 +251,7 @@
   "title": "Floral Print Bollywood Georgette Saree  (Blue)",
   "brand": "yashika",
   "discount": 75,
+  "count":5,
   "sariLength": "5.5m",
   "fabric": "Georgette",
   "packof": 1,
@@ -266,6 +276,7 @@
   "title": "Floral Print Bollywood Georgette Saree  (Blue)",
   "brand": "mokshi",
   "discount": 0,
+  "count":5,
   "sariLength": "",
   "fabric": "Pure Cotton",
   "packof": 1,
@@ -292,6 +303,7 @@
   "discount": 68,
   "sariLength": "5.5m",
   "fabric": "Silk Blend",
+  "count":5,
   "packof": 1,
   "weight": "1.35 kg",
   "image": [
@@ -314,6 +326,7 @@
   "title": "Woven Kanjivaram Jacquard, Pure Silk Saree  (Blue)",
   "brand": "TopJec",
   "discount": 5,
+  "count":5,
   "sariLength": "5.5m",
   "fabric": "Jacquard, Pure Silk",
   "packof": 1,
@@ -338,6 +351,7 @@
   "title": "Embellished Bollywood Silk Blend Saree  (Purple)",
   "brand": "Sareemall",
   "discount": 79,
+  "count":5,
   "sariLength": "5.5m",
   "fabric": "Silk Blend",
   "packof": 1,
@@ -372,6 +386,7 @@
     "https://rukminim2.flixcart.com/image/832/832/xif0q/sari/z/i/h/free-8905774003894-grancy-stitched-original-imagjwdahy468agh.jpeg?q=70"
   ],
   "price": 4900,
+  "count":5,
   "gender": "Female",
   "type": "Bollywood",
   "styleCode": "SILVER27018_TFH",
@@ -386,6 +401,7 @@
   "title": "Woven Banarasi Silk Blend Saree  (Green)",
   "brand": "Sareemall",
   "discount": 77,
+  "count":5,
   "sariLength": "5.5m",
   "fabric": "Silk Blend",
   "packof": 1,

@@ -21,6 +21,7 @@ type MaleProduct struct {
 	Type      string             `bson:"type"`
 	StyleCode string             `bson:"styleCode"`
 	NeckType  string             `bson:"NeckType"`
+	Count     int                `bson:"count"`
 	// CreatedAt time.Time          `bson:"created_at"`
 	// UpdatedAt time.Time          `bson:"updated_at"`
 }
@@ -42,6 +43,7 @@ type FemaleProduct struct {
 	Pattern    string             `bson:"pattern"`
 	SariStyle  string             `bson:"sariStyle"`
 	Occasion   string             `bson:"occasion"`
+	Count      int                `bson:"count"`
 
 	// CreatedAt time.Time          `bson:"created_at"`
 	// UpdatedAt time.Time          `bson:"updated_at"`
