@@ -92,10 +92,9 @@ func GetProductFromCart(response http.ResponseWriter, request *http.Request) {
 	}
 }
 
-
 func DeleteProductFromCart(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
-	
+
 	query := request.URL.Query().Get("q")
 	if query == " " {
 		http.Error(response, "Missing query parameter 'q' ", http.StatusBadRequest)
@@ -107,25 +106,65 @@ func DeleteProductFromCart(response http.ResponseWriter, request *http.Request) 
 		http.Error(response, "Invalid query parameter 'q'", http.StatusBadRequest)
 		return
 	}
-	
+
 	filter := bson.M{"productId": id}
-	fmt.Println(filter)
 	curr := database.Cartdata.FindOneAndDelete(request.Context(), filter)
-	
+
 	if curr.Err() != nil {
 		http.Error(response, curr.Err().Error(), http.StatusInternalServerError)
-        return
-    }
-	
+		return
+	}
+
 	var deletedProduct models.Cart
 	if err := curr.Decode(&deletedProduct); err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
-        return
-    }
-	
+		return
+	}
 	json.NewEncoder(response).Encode(deletedProduct)
 }
 
 func UpdateProductFromCart(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
+
+	query := request.URL.Query().Get("q")
+	if query == " " {
+		http.Error(response, "Invalid query paramter 'q'", http.StatusBadRequest)
+		return
+	}
+
+	id, err := primitive.ObjectIDFromHex(query)
+	if err != nil {
+		http.Error(response, "Invalid Conversions of query", http.StatusBadRequest)
+		return
+	}
+
+	// construct struct because of count is common in famle and male models
+	var totalItem models.Cart
+	_ = json.NewDecoder(request.Body).Decode(&totalItem)
+
+	filter := bson.M{"productId": id}
+	update := bson.M{"$set": bson.M{"totalItem": totalItem.TotalItem}}
+
+	fmt.Println( totalItem.TotalItem, "filter and update")
+
+	result, updateErr := database.Cartdata.UpdateOne(context.Background(), filter, update)
+	if updateErr != nil {
+		http.Error(response, updateErr.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if result.MatchedCount == 0 {
+		http.Error(response, "Product not found", http.StatusNotFound)
+		return
+	}
+
+	// Send a success response
+	responseJSON := map[string]interface{}{
+		"message": "Document updated successfully",
+	}
+
+	response.WriteHeader(http.StatusOK)
+	json.NewEncoder(response).Encode(responseJSON)
 }
+
+

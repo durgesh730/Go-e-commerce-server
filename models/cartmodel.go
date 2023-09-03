@@ -6,5 +6,5 @@ type Cart struct {
 	Id        primitive.ObjectID `bson:"_id,omitempty"`
 	ProductId primitive.ObjectID `bson:"productId"`
 	UserId    primitive.ObjectID `bson:"userId"`
-	TotalItem int                `bson:"totalItem"`
+	TotalItem int                `bson:"totalItem" json:"totalItem"`
 }
