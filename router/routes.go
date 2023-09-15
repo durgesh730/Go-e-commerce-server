@@ -1,7 +1,6 @@
 package router
 
 import (
-	// "github.com/durgesh730/authenticationInGo/middleware" middleware
 	"github.com/durgesh730/authenticationInGo/controllers"
 	"github.com/durgesh730/authenticationInGo/middleware"
 	"github.com/gorilla/mux"
@@ -14,6 +13,7 @@ func Router() *mux.Router {
 	router.HandleFunc("/user/signup", controllers.RegisterUser).Methods("POST")
 	router.HandleFunc("/user/login", controllers.LoginUser).Methods("POST")
 	router.HandleFunc("/getuserData", controllers.GetUsersEndpoint).Methods("GET")
+	router.HandleFunc("/user/AddAddress", middleware.AuthMiddleware(controllers.AddAddress)).Methods("PUT")
 
 	//product
 	router.HandleFunc("/product/Maleproduct", controllers.MaleCreateProducts).Methods("POST")

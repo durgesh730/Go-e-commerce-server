@@ -1,8 +1,6 @@
 package models
 
 import (
-	// "time"
-
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -22,8 +20,6 @@ type MaleProduct struct {
 	StyleCode string             `bson:"styleCode"`
 	NeckType  string             `bson:"NeckType"`
 	Count     int                `bson:"count"`
-	// CreatedAt time.Time          `bson:"created_at"`
-	// UpdatedAt time.Time          `bson:"updated_at"`
 }
 
 type FemaleProduct struct {
@@ -44,7 +40,4 @@ type FemaleProduct struct {
 	SariStyle  string             `bson:"sariStyle"`
 	Occasion   string             `bson:"occasion"`
 	Count      int                `bson:"count"`
-
-	// CreatedAt time.Time          `bson:"created_at"`
-	// UpdatedAt time.Time          `bson:"updated_at"`
 }
