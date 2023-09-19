@@ -8,7 +8,6 @@ import (
 
 	"github.com/durgesh730/authenticationInGo/database"
 	"github.com/durgesh730/authenticationInGo/helper"
-	"github.com/durgesh730/authenticationInGo/middleware"
 	"github.com/durgesh730/authenticationInGo/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -155,21 +154,17 @@ func GetUsersEndpoint(response http.ResponseWriter, request *http.Request) {
 
 func AddAddress(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("content-type", "application/json")
-
-	val := request.Context().Value(middleware.UserIDKey)
-	if val == nil {
-		helper.SendJSONError(response, "No user Id present", http.StatusUnauthorized)
-		return
-	}
-	userId, ok := val.(string)
-	if !ok {
-		helper.SendJSONError(response, "User ID is of the wrong type", http.StatusInternalServerError)
-		return
-	}
-
-	objectId, err := primitive.ObjectIDFromHex(userId)
+ 
+	objectId, err := helper.GetObjectIDFromToken(request)
 	if err != nil {
-		helper.SendJSONError(response, "Invalid user ID format", http.StatusBadRequest)
+		switch err.Error() {
+		case "No user ID present":
+			helper.SendJSONError(response, err.Error(), http.StatusUnauthorized)
+		case "User ID is of the wrong type", "Invalid user ID format":
+			helper.SendJSONError(response, err.Error(), http.StatusInternalServerError)
+		default:
+			helper.SendJSONError(response, "Unexpected error", http.StatusInternalServerError)
+		}
 		return
 	}
 
@@ -181,7 +176,7 @@ func AddAddress(response http.ResponseWriter, request *http.Request) {
 	}
 
 	filter := bson.M{"_id": objectId}
-	update := bson.M{"$push": bson.M{"Address": users.Address}}
+	update := bson.M{"$push": bson.M{"Addresses": users.Addresses}}
 
 	save, SaveErr := database.SaveData.UpdateOne(context.Background(), filter, update)
 	if SaveErr != nil {
