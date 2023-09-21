@@ -16,5 +16,5 @@ type User struct {
 	LastName  string             `json:"lastName" bson:"lastName"`
 	Email     string             `json:"email" bson:"email"`
 	Password  string             `json:"password" bson:"password"`
-	Addresses Address          `json:"address" bson:"address"`
+	Addresses []Address          `json:"addresses" bson:"addresses"`
 }

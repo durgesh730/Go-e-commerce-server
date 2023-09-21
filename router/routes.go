@@ -12,8 +12,8 @@ func Router() *mux.Router {
 	// users routes
 	router.HandleFunc("/user/signup", controllers.RegisterUser).Methods("POST")
 	router.HandleFunc("/user/login", controllers.LoginUser).Methods("POST")
-	router.HandleFunc("/getuserData", controllers.GetUsersEndpoint).Methods("GET")
-	router.HandleFunc("/user/AddAddress", middleware.AuthMiddleware(controllers.AddAddress)).Methods("PUT")
+	router.HandleFunc("/user/getuserData/", middleware.AuthMiddleware(controllers.GetUsersEndpoint)).Methods("GET")
+	router.HandleFunc("/user/AddAddress/", middleware.AuthMiddleware(controllers.AddAddress)).Methods("PUT")
 
 	//product
 	router.HandleFunc("/product/Maleproduct", controllers.MaleCreateProducts).Methods("POST")
