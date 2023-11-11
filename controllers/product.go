@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 
-	// "fmt"
 	"net/http"
 
 	"github.com/durgesh730/authenticationInGo/database"
